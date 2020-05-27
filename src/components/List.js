@@ -11,7 +11,10 @@ class List extends Component {
         return (
             <main>
                 <div className="List">
-                    <ListItem />
+                    {this.props.listData.map(listItemData => 
+                        <ListItem key={listItemData.nid} listItemData={listItemData} 
+                            handleTitleUpdate={this.props.handleTitleUpdate}/>
+                        )}
                 </div>
             </main>
         );

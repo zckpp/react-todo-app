@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import ExpandMoreRoundedIcon from '@material-ui/icons/ExpandMoreRounded';
 import Collapse from '@material-ui/core/Collapse';
-import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
+import ContentEditable from 'react-contenteditable'
 
 class ListItem extends Component {
     constructor(props) {
         super(props);
+        this.contentEditable = React.createRef();
         this.state = { expanded: false };
     }
 
@@ -18,17 +18,26 @@ class ListItem extends Component {
         this.state.expanded ? this.setState({ expanded: false }) : this.setState({ expanded: true });
     }
 
+    handleTitleUpdate = (e) => {
+        this.props.handleTitleUpdate(e.target.value, this.props.listItemData.nid);
+    }
+
     render() {
         return (
             <div className="ListItem">
                 <Card className="Card">
-                    <CardHeader
-                        className="Card-header"
-                        title="My stuff to do"
-                        subheader="September 14, 2020"
-                    />
+                    <div className="Card-header">
+                        <ContentEditable
+                            innerRef={this.contentEditable}
+                            html={this.props.listItemData.title} // innerHTML of the editable div
+                            disabled={false}       // use true to disable editing
+                            onBlur={this.handleTitleUpdate} // handle innerHTML change
+                            tagName='h2' // Use a custom HTML tag (uses a div by default)
+                        />
+                        {this.props.listItemData.date}
+                    </div>
                     <CardActions disableSpacing className="Card-action">
-                        <IconButton                                 
+                        <IconButton
                             onClick={this.handleExpend}
                             aria-expanded={this.state.expanded}
                             aria-label="show more">
@@ -37,9 +46,7 @@ class ListItem extends Component {
                     </CardActions>
                     <Collapse in={this.state.expanded} timeout="auto" unmountOnExit className="Card-content">
                         <CardContent>
-                            <p>
-                                I need to do some stuff.
-                            </p>
+                            {this.props.listItemData.body}
                         </CardContent>
                     </Collapse>
                 </Card>

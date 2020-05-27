@@ -34,15 +34,24 @@ body {
         width: 90%;
         margin: 0 auto;
         .ListItem {
+          margin-bottom: 3%;
           .Card {
             display: flex;
             flex-wrap: wrap;
+            justify-content: space-between;
             width: 100%;
             &-header {
               width: 70%;
+              padding: 15px;
+                h2 {
+                  margin: 0;
+                  color: black;
+                }
+                color: gray;
             }
             &-action {
-              width: 20%;
+              flex-direction: row-reverse;
+              width: 15%;
             }
             &-content {
               width: 100%;
