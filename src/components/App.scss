@@ -46,8 +46,16 @@ body {
                 h2 {
                   margin: 0;
                   color: black;
+                  border: 2px solid white;
+                  &:focus {
+                    outline: none;
+                    border: 2px solid lightblue;
+                  }
                 }
-                color: gray;
+                div {
+                  border: 2px solid white;
+                  color: gray;
+                }
             }
             &-action {
               flex-direction: row-reverse;
@@ -55,6 +63,13 @@ body {
             }
             &-content {
               width: 100%;
+              &-text {
+                border: 2px solid white;
+                &:focus {
+                  outline: none;
+                  border: 2px solid lightblue;
+                }
+              }
             }
           }
         }
@@ -69,6 +84,30 @@ body {
           }
         }
       }
-    }  
+    }
+    .Modal-wrapper {
+      position: fixed;
+      right: 3%;
+      bottom: 3%;
+      z-index: 10;
+      button {
+        svg {
+          font-size: 3.5rem;
+        }
+      }
+    }
   }
 }
+.Modal-body {
+  width: 80%;
+  margin: 0 auto;
+  top: 10%;
+  position: relative;
+  padding: 20px;
+  background: white;
+  border-radius: 5px;
+  text-align: center;
+  &:focus {
+    outline: none;
+  }
+}  

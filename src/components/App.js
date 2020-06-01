@@ -1,30 +1,48 @@
 import React, { Component } from 'react';
 import './App.scss';
 import Nav from './Nav';
-import List from './List';
-
-const listItems = [
-  {
-    nid: 201,
-    title: "My stuff to do",
-    date: "September 14, 2020",
-    body: "I need to do some stuff."
-  },
-  {
-    nid: 202,
-    title: "My stuff to do # 2",
-    date: "August 14, 2020",
-    body: "Some stuff to do."
-  }
-];
+import NoteList from './NoteList';
+import CreateNote from './CreatNote'
 
 class App extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      error: null,
+      isLoaded: false,
+      listItems: []
+    };
   }
 
   handleTitleUpdate = (title, nid) => {
     console.log('update ' + title + ' for ' + nid);
+  }
+
+  handleBodyUpdate = (body, nid) => {
+    console.log('update ' + body + ' for ' + nid);
+  }
+
+  componentDidMount() {
+    fetch("/list.json")
+      .then(res => res.json())
+      .then(
+        (result) => {
+          this.setState({
+            isLoaded: true,
+            listItems: result
+          });
+        },
+        // Note: it's important to handle errors here
+        // instead of a catch() block so that we don't swallow
+        // exceptions from actual bugs in components.
+        (error) => {
+          this.setState({
+            isLoaded: true,
+            error: error
+          });
+          console.log(this.state);
+        }
+      )
   }
 
   render() {
@@ -34,7 +52,8 @@ class App extends Component {
           <h1>My Todo List</h1>
         </header>
         <Nav />
-        <List listData={listItems} handleTitleUpdate={this.handleTitleUpdate} />
+        <NoteList listData={this.state.listItems} handleTitleUpdate={this.handleTitleUpdate} handleBodyUpdate={this.handleBodyUpdate} />
+        <CreateNote />
       </div>
     );
   }
