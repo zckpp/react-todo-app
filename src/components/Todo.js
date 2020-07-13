@@ -7,7 +7,7 @@ import Collapse from '@material-ui/core/Collapse';
 import IconButton from '@material-ui/core/IconButton';
 import ContentEditable from 'react-contenteditable'
 
-class NoteListItem extends Component {
+class Todo extends Component {
   constructor(props) {
     super(props);
     this.contentEditable = React.createRef();
@@ -19,14 +19,15 @@ class NoteListItem extends Component {
   }
 
   handleTitleUpdate = (e) => {
-    this.props.handleTitleUpdate(e.target.innerText, this.props.listItemData.nid);
+    this.props.handleTitleUpdate(e.target.innerText, this.props.data.id);
   }
 
   handleBodyUpdate = (e) => {
-    this.props.handleBodyUpdate(e.target.innerText, this.props.listItemData.nid);
+    this.props.handleBodyUpdate(e.target.innerText, this.props.data.id);
   }
 
   render() {
+    const { data } = this.props;
     return (
       <div className="ListItem">
         <Card className="Card">
@@ -34,12 +35,12 @@ class NoteListItem extends Component {
             {/* card title and date */}
             <ContentEditable
               innerRef={this.contentEditable}
-              html={this.props.listItemData.title} // innerHTML of the editable div
+              html={data.title} // innerHTML of the editable div
               disabled={false}       // use true to disable editing
               onBlur={this.handleTitleUpdate} // handle innerHTML change
               tagName='h2' // Use a custom HTML tag (uses a div by default)
             />
-            <div>{this.props.listItemData.date}</div>
+            <div>{data.date}</div>
           </div>
           <CardActions disableSpacing className="Card-action">
             <IconButton
@@ -54,7 +55,7 @@ class NoteListItem extends Component {
             <CardContent>
               <ContentEditable
                 innerRef={this.contentEditable}
-                html={this.props.listItemData.body} // innerHTML of the editable div
+                html={data.body} // innerHTML of the editable div
                 disabled={false}       // use true to disable editing
                 onBlur={this.handleBodyUpdate} // handle innerHTML change
                 className="Card-content-text"
@@ -67,4 +68,4 @@ class NoteListItem extends Component {
   }
 }
 
-export default NoteListItem;
+export default Todo;

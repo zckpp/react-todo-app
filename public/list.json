@@ -1,12 +1,12 @@
 [
     {
-      "nid": 201,
+      "id": 201,
       "title": "My stuff to do",
       "date": "September 14, 2020",
       "body": "I need to do some stuff."
     },
     {
-      "nid": 202,
+      "id": 202,
       "title": "My stuff to do # 2",
       "date": "August 14, 2020",
       "body": "Some stuff to do."
