@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Todo from './Todo'
-import { loadTodos, titleUpdate, bodyUpdate } from './thunks';
+import { loadTodos, titleUpdate, bodyUpdate, setCompleteTodo } from './thunks';
 
 class TodoList extends Component {
   componentDidMount() {
-    const {  onLoadTodos } = this.props;
+    const { onLoadTodos } = this.props;
 		onLoadTodos();
   }
 
 	render() {
-		const { onTitleUpdate, onBodyUpdate, todos = [], isLoading } = this.props;
+		const { onTitleUpdate, onBodyUpdate, onSetComplete, todos = [], isLoading } = this.props;
 		return (
 			<main>
 				<div className="List">
@@ -18,9 +18,10 @@ class TodoList extends Component {
 						isLoading === true
 						? <h3>Loading...</h3>
 						: todos.map(todo =>
-								<Todo key={todo.id} data={todo}
+								<Todo key={todo._id} data={todo}
 									handleTitleUpdate={onTitleUpdate}
 									handleBodyUpdate={onBodyUpdate}
+									handleSetComplete={onSetComplete}
 								/>
 						  )}
 				</div>
@@ -37,7 +38,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
 	onLoadTodos: () => dispatch(loadTodos()),
 	onTitleUpdate: (title, id) => dispatch(titleUpdate(title, id)),
-	onBodyUpdate: (body, id) => dispatch(bodyUpdate(body, id))
+	onBodyUpdate: (body, id) => dispatch(bodyUpdate(body, id)),
+	onSetComplete: (id) => dispatch(setCompleteTodo(id))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(TodoList);

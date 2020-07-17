@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './App.scss';
 import Nav from './components/Nav';
 import TodoList from './components/TodoList';
-import CreateNote from './components/CreatNote'
+import AddTodo from './components/AddTodo';
 
 class App extends Component {
   render() {
@@ -13,7 +13,7 @@ class App extends Component {
         </header>
         <Nav />
         <TodoList/>
-        <CreateNote />
+        <AddTodo />
       </div>
     );
   }

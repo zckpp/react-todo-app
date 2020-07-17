@@ -3,8 +3,14 @@ import { loadTodosInProgress, loadTodosSuccess, loadTodosFailure, createTodo, re
 export const loadTodos = () => async (dispatch) => {
   try {
     dispatch(loadTodosInProgress());
-    const response = await fetch('/list.json');
-    const todos = await response.json();
+    const response = await fetch('http://localhost:4000/todos');
+    const json = await response.json();
+    // format date
+    const todos = json.map(todo => {
+      const date = new Date(todo.createdAt);
+      todo.createdAt = date.toDateString();
+      return todo;
+    });
     dispatch(loadTodosSuccess(todos));
   } catch(e) {
     dispatch(loadTodosFailure());
@@ -27,18 +33,17 @@ export const bodyUpdate = (body, id) => async (dispatch) => {
   }
 }
 
-export const addTodo = text => async (dispatch) => {
+export const addTodo = (title, body) => async (dispatch) => {
   try {
-    const body = JSON.stringify({ text });
-    const response = await fetch('http://localhost:8080/todos', {
+    const response = await fetch('http://localhost:4000/todos', {
       headers: {
         'Content-Type': 'application/json',
       },
       method: 'post',
-      body
+      body: JSON.stringify({ title: title, body: body })
     });
-    const todo = await response.json();
-    dispatch(createTodo(todo));
+    const json = await response.json();
+    dispatch(createTodo(json.todo));
   } catch(e) {
     alert(e);
   }
@@ -58,14 +63,14 @@ export const deleteTodo = id => async (dispatch) => {
 
 export const setCompleteTodo = id => async (dispatch) => {
   try {
-    const response = await fetch(`http://localhost:8080/todos/${id}/completed`, {
+    const response = await fetch(`http://localhost:4000/todos/${id}/complete`, {
       headers: {
         'Content-Type': 'application/json',
       },
-      method: 'post'
+      method: 'put'
     });
-    const todo = await response.json();
-    dispatch(completeTodo(todo));
+    const json = await response.json();
+    dispatch(completeTodo(json.todo));
   } catch(e) {
     alert(e);
   }

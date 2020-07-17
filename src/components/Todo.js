@@ -4,6 +4,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import ExpandMoreRoundedIcon from '@material-ui/icons/ExpandMoreRounded';
 import Collapse from '@material-ui/core/Collapse';
+import DoneIcon from '@material-ui/icons/Done';
 import IconButton from '@material-ui/core/IconButton';
 import ContentEditable from 'react-contenteditable'
 
@@ -19,11 +20,15 @@ class Todo extends Component {
   }
 
   handleTitleUpdate = (e) => {
-    this.props.handleTitleUpdate(e.target.innerText, this.props.data.id);
+    this.props.handleTitleUpdate(e.target.innerText, this.props.data._id);
   }
 
   handleBodyUpdate = (e) => {
-    this.props.handleBodyUpdate(e.target.innerText, this.props.data.id);
+    this.props.handleBodyUpdate(e.target.innerText, this.props.data._id);
+  }
+
+  handleSetComplete = () => {
+    this.props.handleSetComplete(this.props.data._id);
   }
 
   render() {
@@ -40,7 +45,7 @@ class Todo extends Component {
               onBlur={this.handleTitleUpdate} // handle innerHTML change
               tagName='h2' // Use a custom HTML tag (uses a div by default)
             />
-            <div>{data.date}</div>
+            <div>{data.createdAt}</div>
           </div>
           <CardActions disableSpacing className="Card-action">
             <IconButton
@@ -48,6 +53,11 @@ class Todo extends Component {
               aria-expanded={this.state.expanded}
               aria-label="show more">
               <ExpandMoreRoundedIcon className={this.state.expanded ? "expandOpen" : "expand"} />
+            </IconButton>
+            <IconButton
+              onClick={this.handleSetComplete}
+              aria-label="complete">
+              <DoneIcon />
             </IconButton>
           </CardActions>
           <Collapse in={this.state.expanded} timeout="auto" unmountOnExit className="Card-content">

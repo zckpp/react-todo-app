@@ -13,9 +13,12 @@ export const todos = (state = initialState, action) => {
   switch (type) {
     case CREATE_TODO: {
       const { todo } = payload;
+      const date = new Date(todo.createdAt);
+      todo.createdAt = date.toDateString();
+      state.data.unshift(todo);
       return {
         ...state,
-        data: state.data.concat(todo)
+        data: state.data
       };
     }
     case REMOVE_TODO: {
@@ -30,8 +33,8 @@ export const todos = (state = initialState, action) => {
       return {
         ...state,
         data: state.data.map(todo => {
-          if (todoToComplete.id === todo.id) {
-            todo.isCompleted = true;
+          if (todoToComplete._id === todo._id) {
+            todo.completed = true;
           }
           return todo;
         })
