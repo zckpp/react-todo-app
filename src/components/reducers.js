@@ -3,10 +3,11 @@ import { CREATE_TODO, REMOVE_TODO, COMPLETE_TODO, LOAD_TODOS_IN_PROGRESS, LOAD_T
 /*
   state.todos = {
     data: [...],
-    isLoading: boolean
+    isLoading: boolean.
+    showCompleted: boolean
   }
 */
-const initialState = { isLoading: false, data: [] };
+const initialState = { isLoading: false, data: [], showCompleted: false };
 
 export const todos = (state = initialState, action) => {
   const { type, payload } = action;
