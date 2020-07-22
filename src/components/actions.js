@@ -31,3 +31,13 @@ export const LOAD_TODOS_FAILURE = 'LOAD_TODOS_FAILURE';
 export const loadTodosFailure = () => ({
   type: LOAD_TODOS_FAILURE,
 });
+
+export const VIEW_INCOMPLETE_TODOS = 'VIEW_INCOMPLETE_TODOS';
+export const viewIncompleteTodos = () => ({
+  type: VIEW_INCOMPLETE_TODOS,
+});
+
+export const VIEW_COMPLETE_TODOS = 'VIEW_COMPLETE_TODOS';
+export const viewCompleteTodos = () => ({
+  type: VIEW_COMPLETE_TODOS,
+});

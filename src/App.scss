@@ -22,7 +22,7 @@ body {
       .Nav-button {
         cursor: pointer;
         font-size: 50px;
-        position: fixed;
+        position: absolute;
         top: 7%;
         left: 5%;
         color: white;
@@ -33,6 +33,13 @@ body {
       .List {
         width: 90%;
         margin: 0 auto;
+        &-Complete {
+          .ListItem {
+            .Card {
+              opacity: 0.5;
+            }
+          }
+        }
         .ListItem {
           margin-bottom: 3%;
           .Card {
@@ -86,15 +93,26 @@ body {
       }
     }
     .Modal-wrapper {
-      position: fixed;
+      position: absolute;
       right: 3%;
-      bottom: 3%;
+      top: 5%;
       z-index: 10;
       button {
+        color: white;
         svg {
           font-size: 3.5rem;
         }
       }
+    }
+  }
+  // drawer
+  .MuiDrawer-paperAnchorLeft {
+    width: 90px;
+    .Drawer-button {
+      cursor: pointer;
+      font-size: 50px;
+      margin: 15px auto;
+      color: #282c34
     }
   }
 }

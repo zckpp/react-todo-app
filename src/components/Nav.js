@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import MenuIcon from '@material-ui/icons/Menu';
+import AssignmentIcon from '@material-ui/icons/Assignment';
+import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
+import { viewIncompleteTodos, viewCompleteTodos } from './actions';
+import { connect } from 'react-redux';
 
 class Nav extends Component {
 	constructor(props) {
@@ -13,6 +17,7 @@ class Nav extends Component {
 	}
 
 	render() {
+		const { onViewIncomlete, onViewComlete } = this.props;
 		return (
 			<aside>
 				<div className="Nav">
@@ -21,7 +26,11 @@ class Nav extends Component {
 						open={this.state.show}
 						onClose={this.toggleNav}
 						onOpen={this.toggleNav}
-					>Dude!</SwipeableDrawer>
+						onClick={this.toggleNav}
+					>
+						<AssignmentIcon onClick={onViewIncomlete} className="Drawer-button"></AssignmentIcon>
+						<AssignmentTurnedInIcon onClick={onViewComlete} className="Drawer-button"></AssignmentTurnedInIcon>
+					</SwipeableDrawer>
 					<MenuIcon onClick={this.toggleNav} className="Nav-button"></MenuIcon>
 				</div>
 			</aside>
@@ -29,4 +38,8 @@ class Nav extends Component {
 	}
 }
 
-export default Nav;
+const mapDispatchToProps = dispatch => ({
+	onViewIncomlete: () => dispatch(viewIncompleteTodos()),
+	onViewComlete: () => dispatch(viewCompleteTodos())
+});
+export default connect(null, mapDispatchToProps)(Nav);

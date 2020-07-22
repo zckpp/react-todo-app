@@ -18,7 +18,7 @@ class TodoList extends Component {
 					{
 						isLoading === true
 						? <h3>Loading...</h3>
-						: <div>
+						: <div className={showCompleted === false ? 'List-Incomplete' : 'List-Complete'}>
 								{
 									showCompleted === false
 									? incompleteTodos.map(todo =>
