@@ -1,7 +1,9 @@
 import { 
   CREATE_TODO, 
   REMOVE_TODO, 
-  COMPLETE_TODO, 
+  COMPLETE_TODO,
+  UPDATE_TODO_TITLE,
+  UPDATE_TODO_BODY, 
   LOAD_TODOS_IN_PROGRESS, 
   LOAD_TODOS_SUCCESS, 
   LOAD_TODOS_FAILURE,
@@ -45,6 +47,31 @@ export const todos = (state = initialState, action) => {
         data: state.data.map(todo => {
           if (todoToComplete._id === todo._id) {
             todo.completed = true;
+          }
+          return todo;
+        })
+      };
+    }
+    case UPDATE_TODO_TITLE: {
+      const { todo: todoToUpdate } = payload;
+      return {
+        ...state,
+        data: state.data.map(todo => {
+          if (todoToUpdate._id === todo._id) {
+            todo.title = todoToUpdate.title;
+          }
+          return todo;
+        })
+      };
+    }
+    case UPDATE_TODO_BODY: {
+      const { todo: todoToUpdate } = payload;
+      return {
+        ...state,
+        data: state.data.map(todo => {
+          if (todoToUpdate._id === todo._id) {
+            todo.body = todoToUpdate.body;
+            console.log(todo);
           }
           return todo;
         })

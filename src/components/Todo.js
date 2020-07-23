@@ -11,7 +11,6 @@ import ContentEditable from 'react-contenteditable'
 class Todo extends Component {
   constructor(props) {
     super(props);
-    this.contentEditable = React.createRef();
     this.state = { expanded: false };
   }
 
@@ -20,11 +19,13 @@ class Todo extends Component {
   }
 
   handleTitleUpdate = (e) => {
-    this.props.handleTitleUpdate(e.target.innerText, this.props.data._id);
+    if (e.target.innerText !== this.props.data.title)
+      this.props.handleTitleUpdate(e.target.innerText, this.props.data);
   }
 
   handleBodyUpdate = (e) => {
-    this.props.handleBodyUpdate(e.target.innerText, this.props.data._id);
+    if (e.target.innerText !== this.props.data.body)
+      this.props.handleBodyUpdate(e.target.innerText, this.props.data);
   }
 
   handleSetComplete = () => {
@@ -39,7 +40,6 @@ class Todo extends Component {
           <div className="Card-header">
             {/* card title and date */}
             <ContentEditable
-              innerRef={this.contentEditable}
               html={data.title} // innerHTML of the editable div
               disabled={false}       // use true to disable editing
               onBlur={this.handleTitleUpdate} // handle innerHTML change
@@ -64,7 +64,6 @@ class Todo extends Component {
             {/* card body text */}
             <CardContent>
               <ContentEditable
-                innerRef={this.contentEditable}
                 html={data.body} // innerHTML of the editable div
                 disabled={false}       // use true to disable editing
                 onBlur={this.handleBodyUpdate} // handle innerHTML change

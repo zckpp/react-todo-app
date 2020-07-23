@@ -16,6 +16,18 @@ export const completeTodo = todo => ({
   payload: { todo }
 });
 
+export const UPDATE_TODO_TITLE = 'UPDATE_TODO_TITLE';
+export const updateTodoTitle = todo => ({
+  type: UPDATE_TODO_TITLE,
+  payload: { todo }
+});
+
+export const UPDATE_TODO_BODY = 'UPDATE_TODO_BODY';
+export const updateTodoBody = todo => ({
+  type: UPDATE_TODO_BODY,
+  payload: { todo }
+});
+
 export const LOAD_TODOS_IN_PROGRESS = 'LOAD_TODOS_IN_PROGRESS';
 export const loadTodosInProgress = () => ({
   type: LOAD_TODOS_IN_PROGRESS,

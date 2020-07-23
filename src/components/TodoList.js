@@ -53,8 +53,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
 	onLoadTodos: () => dispatch(loadTodos()),
-	onTitleUpdate: (title, id) => dispatch(titleUpdate(title, id)),
-	onBodyUpdate: (body, id) => dispatch(bodyUpdate(body, id)),
+	onTitleUpdate: (title, todo) => dispatch(titleUpdate(title, todo)),
+	onBodyUpdate: (body, todo) => dispatch(bodyUpdate(body, todo)),
 	onSetComplete: (id) => dispatch(setCompleteTodo(id))
 });
 

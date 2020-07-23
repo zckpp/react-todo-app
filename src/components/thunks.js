@@ -1,4 +1,13 @@
-import { loadTodosInProgress, loadTodosSuccess, loadTodosFailure, createTodo, removeTodo, completeTodo } from './actions';
+import { 
+  loadTodosInProgress, 
+  loadTodosSuccess, 
+  loadTodosFailure, 
+  createTodo, 
+  removeTodo, 
+  completeTodo,
+  updateTodoTitle,
+  updateTodoBody 
+} from './actions';
 
 export const loadTodos = () => async (dispatch) => {
   try {
@@ -17,17 +26,39 @@ export const loadTodos = () => async (dispatch) => {
   }
 }
 
-export const titleUpdate = (title, id) => async (dispatch) => {
+export const titleUpdate = (title, todo) => async (dispatch) => {
   try {
-    console.log(title, id);
+    if (title !== todo.title) {
+      todo.title = title;
+      const response = await fetch(`http://localhost:4000/todos/${todo._id}`, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        method: 'post',
+        body: JSON.stringify({ title: todo.title, body: todo.body })
+      });
+      const json = await response.json();
+      dispatch(updateTodoTitle(json.todo));
+    }
   } catch(e) {
     dispatch(loadTodosFailure());
   }
 }
 
-export const bodyUpdate = (body, id) => async (dispatch) => {
+export const bodyUpdate = (body, todo) => async (dispatch) => {
   try {
-    console.log(body, id);
+    if (body !== todo.body) {
+      todo.body = body;
+      const response = await fetch(`http://localhost:4000/todos/${todo._id}`, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        method: 'post',
+        body: JSON.stringify({ title: todo.title, body: todo.body })
+      });
+      const json = await response.json();
+      dispatch(updateTodoBody(json.todo));
+    }
   } catch(e) {
     dispatch(loadTodosFailure());
   }
