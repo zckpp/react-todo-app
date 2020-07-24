@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Todo from './Todo'
-import { loadTodos, titleUpdate, bodyUpdate, setCompleteTodo } from './thunks';
+import { loadTodos, titleUpdate, bodyUpdate, setCompleteTodo, deleteTodoByID } from './thunks';
 import { getIsLoading, getCompletedTodos, getIncompleteTodos, getShowCompleted } from './selectors';
 
 class TodoList extends Component {
@@ -11,7 +11,7 @@ class TodoList extends Component {
   }
 
 	render() {
-		const { onTitleUpdate, onBodyUpdate, onSetComplete, incompleteTodos = [], completedTodos = [], isLoading, showCompleted } = this.props;
+		const { onTitleUpdate, onBodyUpdate, onSetComplete, onDelete, incompleteTodos = [], completedTodos = [], isLoading, showCompleted } = this.props;
 		return (
 			<main>
 				<div className="List">
@@ -26,6 +26,8 @@ class TodoList extends Component {
 											handleTitleUpdate={onTitleUpdate}
 											handleBodyUpdate={onBodyUpdate}
 											handleSetComplete={onSetComplete}
+											handleDelete={onDelete}
+											showCompleted={showCompleted}
 										/>
 										)
 									: completedTodos.map(todo =>
@@ -33,6 +35,8 @@ class TodoList extends Component {
 											handleTitleUpdate={onTitleUpdate}
 											handleBodyUpdate={onBodyUpdate}
 											handleSetComplete={onSetComplete}
+											handleDelete={onDelete}
+											showCompleted={showCompleted}
 										/>
 										)
 								}
@@ -55,7 +59,8 @@ const mapDispatchToProps = dispatch => ({
 	onLoadTodos: () => dispatch(loadTodos()),
 	onTitleUpdate: (title, todo) => dispatch(titleUpdate(title, todo)),
 	onBodyUpdate: (body, todo) => dispatch(bodyUpdate(body, todo)),
-	onSetComplete: (id) => dispatch(setCompleteTodo(id))
+	onSetComplete: (id) => dispatch(setCompleteTodo(id)),
+	onDelete: (id) => dispatch(deleteTodoByID(id))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(TodoList);

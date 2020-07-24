@@ -3,7 +3,7 @@ import {
   loadTodosSuccess, 
   loadTodosFailure, 
   createTodo, 
-  removeTodo, 
+  deleteTodo, 
   completeTodo,
   updateTodoTitle,
   updateTodoBody 
@@ -80,13 +80,13 @@ export const addTodo = (title, body) => async (dispatch) => {
   }
 }
 
-export const deleteTodo = id => async (dispatch) => {
+export const deleteTodoByID = id => async (dispatch) => {
   try {
-    const response = await fetch(`http://localhost:8080/todos/${id}`, {
+    const response = await fetch(`http://localhost:4000/todos/${id}`, {
       method: 'delete'
     });
-    const removedTodo = await response.json();
-    dispatch(removeTodo(removedTodo));
+    const json = await response.json();
+    dispatch(deleteTodo(json.todo));
   } catch(e) {
     alert(e);
   }

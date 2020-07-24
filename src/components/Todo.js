@@ -5,6 +5,7 @@ import CardActions from '@material-ui/core/CardActions';
 import ExpandMoreRoundedIcon from '@material-ui/icons/ExpandMoreRounded';
 import Collapse from '@material-ui/core/Collapse';
 import DoneIcon from '@material-ui/icons/Done';
+import DeleteIcon from '@material-ui/icons/Delete';
 import IconButton from '@material-ui/core/IconButton';
 import ContentEditable from 'react-contenteditable'
 
@@ -32,8 +33,12 @@ class Todo extends Component {
     this.props.handleSetComplete(this.props.data._id);
   }
 
+  handleDelete = () => {
+    this.props.handleDelete(this.props.data._id);
+  }
+
   render() {
-    const { data } = this.props;
+    const { data, showCompleted } = this.props;
     return (
       <div className="ListItem">
         <Card className="Card">
@@ -54,11 +59,19 @@ class Todo extends Component {
               aria-label="show more">
               <ExpandMoreRoundedIcon className={this.state.expanded ? "expandOpen" : "expand"} />
             </IconButton>
-            <IconButton
-              onClick={this.handleSetComplete}
-              aria-label="complete">
-              <DoneIcon />
+            {
+              showCompleted === false
+              ? <IconButton
+                  onClick={this.handleSetComplete}
+                  aria-label="complete">
+                  <DoneIcon />
+                </IconButton>
+              : <IconButton
+                  onClick={this.handleDelete}
+                  aria-label="delete">
+                <DeleteIcon />
             </IconButton>
+            }
           </CardActions>
           <Collapse in={this.state.expanded} timeout="auto" unmountOnExit className="Card-content">
             {/* card body text */}

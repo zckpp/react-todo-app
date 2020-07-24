@@ -1,6 +1,6 @@
 import { 
   CREATE_TODO, 
-  REMOVE_TODO, 
+  DELETE_TODO, 
   COMPLETE_TODO,
   UPDATE_TODO_TITLE,
   UPDATE_TODO_BODY, 
@@ -33,11 +33,11 @@ export const todos = (state = initialState, action) => {
         data: state.data
       };
     }
-    case REMOVE_TODO: {
-      const { todo: todoToRemove } = payload;
+    case DELETE_TODO: {
+      const { todo: todoToDelete } = payload;
       return {
         ...state,
-        data: state.data.filter(todo => todo.id !== todoToRemove.id)
+        data: state.data.filter(todo => todo._id !== todoToDelete._id)
       };
     }
     case COMPLETE_TODO: {
