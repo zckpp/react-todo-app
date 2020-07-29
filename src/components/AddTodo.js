@@ -41,38 +41,38 @@ class AddTodo extends Component {
                     <div className="Modal-body">
                       <h2>Add a new Todo item</h2>
                       <form noValidate autoComplete="off">
-                      <Grid item xs={12}>
-												<TextField 
-													className="input-text" 
-													id="create-title" 
-													label="Title" 
-													value={this.state.title}
-													onChange={this.handleTitleChange} 
-												/>
-                      </Grid>
-                      <Grid item xs={12}>
-                        <TextField
-													value={this.state.body}
-													className="input-text"
-													id="create-body"
-													label="Body"
-													multiline
-													rows={4}
-													variant="outlined"
-													onChange={this.handleBodyChange}
-                        />
-                      </Grid>
-                      <Button
-                        variant="contained"
-                        color="primary"
-                        size="large"
-                        startIcon={<SaveIcon />}
-                        onClick={() => {
-													this.props.onAddTodo(this.state.title, this.state.body)
-												}}
-                      >
-                      Save
-                      </Button>
+												<Grid item xs={12}>
+													<TextField 
+														className="input-text" 
+														id="create-title" 
+														label="Title" 
+														value={this.state.title}
+														onChange={this.handleTitleChange} 
+													/>
+												</Grid>
+												<Grid item xs={12}>
+													<TextField
+														value={this.state.body}
+														className="input-text"
+														id="create-body"
+														label="Body"
+														multiline
+														rows={4}
+														variant="outlined"
+														onChange={this.handleBodyChange}
+													/>
+												</Grid>
+												<Button
+													variant="contained"
+													color="primary"
+													size="large"
+													startIcon={<SaveIcon />}
+													onClick={() => {
+														this.props.onAddTodo(this.state.title, this.state.body)
+													}}
+												>
+												Save
+												</Button>
                       </form>
                     </div>
                 </Modal>

@@ -53,3 +53,9 @@ export const VIEW_COMPLETE_TODOS = 'VIEW_COMPLETE_TODOS';
 export const viewCompleteTodos = () => ({
   type: VIEW_COMPLETE_TODOS,
 });
+
+export const SET_IS_LOGGEDIN_COOKIE = 'SET_IS_LOGGEDIN_COOKIE';
+export const setIsLoggedinFromCookie = (isLoggedin) => ({
+  type: SET_IS_LOGGEDIN_COOKIE,
+  payload: { isLoggedin }
+});

@@ -115,6 +115,16 @@ body {
       color: #282c34
     }
   }
+  // login form
+  .Login-form {
+    text-align: center;
+    .MuiGrid-item {
+      margin-bottom: 20px;
+    }
+    .Login-button {
+      margin-top: 20px;
+    }
+  }
 }
 .Modal-body {
   width: 80%;

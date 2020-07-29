@@ -8,17 +8,19 @@ import {
   LOAD_TODOS_SUCCESS, 
   LOAD_TODOS_FAILURE,
   VIEW_INCOMPLETE_TODOS,
-  VIEW_COMPLETE_TODOS
+  VIEW_COMPLETE_TODOS,
+  SET_IS_LOGGEDIN_COOKIE
 } from './actions';
 
 /*
   state.todos = {
     data: [...],
-    isLoading: boolean.
-    showCompleted: boolean
+    isLoading: boolean,
+    showCompleted: boolean,
+    isLoggedin: boolean
   }
 */
-const initialState = { isLoading: false, data: [], showCompleted: false };
+const initialState = { isLoading: false, data: [], showCompleted: false, isLoggedin: false };
 
 export const todos = (state = initialState, action) => {
   const { type, payload } = action;
@@ -104,7 +106,14 @@ export const todos = (state = initialState, action) => {
       return {
         ...state,
         showCompleted: true
-      };  
+      };
+    case SET_IS_LOGGEDIN_COOKIE:
+      const { isLoggedin } = payload;
+      return {
+        ...state,
+        // set isLoggedin to false when cookie is undefined
+        isLoggedin: !isLoggedin ? false : true
+      }    
     default: return state;
   }
 }

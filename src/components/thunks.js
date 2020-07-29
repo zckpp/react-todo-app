@@ -6,7 +6,7 @@ import {
   deleteTodo, 
   completeTodo,
   updateTodoTitle,
-  updateTodoBody 
+  updateTodoBody
 } from './actions';
 
 export const loadTodos = () => async (dispatch) => {
