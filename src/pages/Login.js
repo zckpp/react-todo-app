@@ -6,8 +6,11 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
+import { connect } from 'react-redux';
+import { userLogin } from '../components/thunks';
+import { getLoginErrorMessage } from '../components/selectors';
 
-function Login(props) {
+function Login({ errorMessage, onUserLogin }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
@@ -36,15 +39,14 @@ function Login(props) {
                   onChange={(e) => setPassword(e.target.value)} 
                 />
               </Grid>
+              <p><span className='errorMessage'>{errorMessage}</span></p>
               <Button
                 className="Login-button"
                 variant="contained"
                 color="primary"
                 size="large"
                 startIcon={<LockOpenIcon />}
-                // onClick={() => {
-                //   this.props.onAddTodo(this.state.title, this.state.body)
-                // }}
+                onClick={() => onUserLogin(username, password)}
               >
                 Login
               </Button>
@@ -55,4 +57,12 @@ function Login(props) {
   );
 }
 
-export default Login;
+const mapStateToProps = state => ({
+  errorMessage: getLoginErrorMessage(state),
+});
+
+const mapDispatchToProps = dispatch => ({
+	onUserLogin: (username, password) => dispatch(userLogin(username, password)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

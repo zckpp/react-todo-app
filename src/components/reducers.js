@@ -9,18 +9,18 @@ import {
   LOAD_TODOS_FAILURE,
   VIEW_INCOMPLETE_TODOS,
   VIEW_COMPLETE_TODOS,
-  SET_IS_LOGGEDIN_COOKIE
+  SET_IS_LOGGEDIN,
+  SET_LOGIN_ERROR_MESSAGE
 } from './actions';
 
 /*
   state.todos = {
     data: [...],
     isLoading: boolean,
-    showCompleted: boolean,
-    isLoggedin: boolean
+    showCompleted: boolean
   }
 */
-const initialState = { isLoading: false, data: [], showCompleted: false, isLoggedin: false };
+const initialState = { isLoading: false, data: [], showCompleted: false };
 
 export const todos = (state = initialState, action) => {
   const { type, payload } = action;
@@ -107,13 +107,34 @@ export const todos = (state = initialState, action) => {
         ...state,
         showCompleted: true
       };
-    case SET_IS_LOGGEDIN_COOKIE:
+    default: return state;
+  }
+}
+
+/*
+  state.user = {
+    isLoggedin: boolean,
+    errorMessage: string
+  }
+*/
+const initialUserState = { isLoggedin: false, errorMessage: "" };
+export const user = (state = initialUserState, action) => {
+  const { type, payload } = action;
+  switch (type) {
+    case SET_IS_LOGGEDIN:
       const { isLoggedin } = payload;
       return {
         ...state,
         // set isLoggedin to false when cookie is undefined
         isLoggedin: !isLoggedin ? false : true
-      }    
+      }
+    case SET_LOGIN_ERROR_MESSAGE:
+      const { message } = payload;
+      return {
+        ...state,
+        // set isLoggedin to false when cookie is undefined
+        errorMessage: message
+      }      
     default: return state;
   }
 }

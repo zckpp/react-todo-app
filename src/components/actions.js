@@ -54,8 +54,14 @@ export const viewCompleteTodos = () => ({
   type: VIEW_COMPLETE_TODOS,
 });
 
-export const SET_IS_LOGGEDIN_COOKIE = 'SET_IS_LOGGEDIN_COOKIE';
-export const setIsLoggedinFromCookie = (isLoggedin) => ({
-  type: SET_IS_LOGGEDIN_COOKIE,
+export const SET_IS_LOGGEDIN = 'SET_IS_LOGGEDIN';
+export const setIsLoggedin = (isLoggedin) => ({
+  type: SET_IS_LOGGEDIN,
   payload: { isLoggedin }
+});
+
+export const SET_LOGIN_ERROR_MESSAGE = 'SET_LOGIN_ERROR_MESSAGE';
+export const setLoginErrorMessage = message => ({
+  type: SET_LOGIN_ERROR_MESSAGE,
+  payload: { message }
 });

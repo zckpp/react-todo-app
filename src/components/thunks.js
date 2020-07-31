@@ -6,7 +6,9 @@ import {
   deleteTodo, 
   completeTodo,
   updateTodoTitle,
-  updateTodoBody
+  updateTodoBody,
+  setIsLoggedin,
+  setLoginErrorMessage
 } from './actions';
 
 export const loadTodos = () => async (dispatch) => {
@@ -102,6 +104,21 @@ export const setCompleteTodo = id => async (dispatch) => {
     });
     const json = await response.json();
     dispatch(completeTodo(json.todo));
+  } catch(e) {
+    alert(e);
+  }
+}
+
+export const userLogin = (username, password) =>  async (dispatch) => {
+  try {
+    if (username === 'admin' && password === 'admin') {
+      dispatch(setIsLoggedin(true));
+    } else if (username !== 'admin') {
+      dispatch(setLoginErrorMessage('No username found.'));
+    } else {
+      dispatch(setLoginErrorMessage('Wrong password.'));
+    }
+    
   } catch(e) {
     alert(e);
   }
