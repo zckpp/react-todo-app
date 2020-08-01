@@ -29,10 +29,9 @@ export const todos = (state = initialState, action) => {
       const { todo } = payload;
       const date = new Date(todo.createdAt);
       todo.createdAt = date.toDateString();
-      state.data.unshift(todo);
       return {
         ...state,
-        data: state.data
+        data: [todo, ...state.data]
       };
     }
     case DELETE_TODO: {

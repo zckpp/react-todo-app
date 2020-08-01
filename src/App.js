@@ -12,11 +12,6 @@ import { setIsLoggedin } from './components/actions'
 const App = ({ isLoggedin, onSetIsLoggedin }) => {
   const [cookies, setCookie] = useCookies(['isLoggedin']);
 
-  useEffect(() => {
-    // check cookie if login when init
-    onSetIsLoggedin(cookies.isLoggedin);
-  }, []);
-
   // update cookie when login
   useEffect(() => {
     if (isLoggedin) {

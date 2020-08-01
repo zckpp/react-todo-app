@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
@@ -9,85 +9,75 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import IconButton from '@material-ui/core/IconButton';
 import ContentEditable from 'react-contenteditable'
 
-class Todo extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { expanded: false };
+function Todo({ data, showCompleted, handleTitleUpdate, handleBodyUpdate, handleSetComplete, handleDelete }) {
+  const [expanded, setExpanded] = useState(false);
+
+  const onHandleTitleUpdate = (e) => {
+    if (e.target.innerText !== data.title)
+      handleTitleUpdate(e.target.innerText, data);
   }
 
-  handleExpend = () => {
-    this.state.expanded ? this.setState({ expanded: false }) : this.setState({ expanded: true });
+  const onHandleBodyUpdate = (e) => {
+    if (e.target.innerText !== data.body)
+      handleBodyUpdate(e.target.innerText, data);
   }
 
-  handleTitleUpdate = (e) => {
-    if (e.target.innerText !== this.props.data.title)
-      this.props.handleTitleUpdate(e.target.innerText, this.props.data);
+  const onHandleSetComplete = () => {
+    handleSetComplete(data._id);
   }
 
-  handleBodyUpdate = (e) => {
-    if (e.target.innerText !== this.props.data.body)
-      this.props.handleBodyUpdate(e.target.innerText, this.props.data);
+  const onHandleDelete = () => {
+    handleDelete(data._id);
   }
 
-  handleSetComplete = () => {
-    this.props.handleSetComplete(this.props.data._id);
-  }
-
-  handleDelete = () => {
-    this.props.handleDelete(this.props.data._id);
-  }
-
-  render() {
-    const { data, showCompleted } = this.props;
-    return (
-      <div className="ListItem">
-        <Card className="Card">
-          <div className="Card-header">
-            {/* card title and date */}
+  return (
+    <div className="ListItem">
+      <Card className="Card">
+        <div className="Card-header">
+          {/* card title and date */}
+          <ContentEditable
+            html={data.title} // innerHTML of the editable div
+            disabled={false}       // use true to disable editing
+            onBlur={(e) => onHandleTitleUpdate(e)} // handle innerHTML change
+            tagName='h2' // Use a custom HTML tag (uses a div by default)
+          />
+          <div>{data.createdAt}</div>
+        </div>
+        <CardActions disableSpacing className="Card-action">
+          <IconButton
+            onClick={() => setExpanded(expanded ? false : true)}
+            aria-expanded={expanded}
+            aria-label="show more">
+            <ExpandMoreRoundedIcon className={expanded ? "expandOpen" : "expand"} />
+          </IconButton>
+          {
+            showCompleted === false
+            ? <IconButton
+                onClick={() => onHandleSetComplete()}
+                aria-label="complete">
+                <DoneIcon />
+              </IconButton>
+            : <IconButton
+                onClick={() => onHandleDelete()}
+                aria-label="delete">
+              <DeleteIcon />
+          </IconButton>
+          }
+        </CardActions>
+        <Collapse in={expanded} timeout="auto" unmountOnExit className="Card-content">
+          {/* card body text */}
+          <CardContent>
             <ContentEditable
-              html={data.title} // innerHTML of the editable div
+              html={data.body} // innerHTML of the editable div
               disabled={false}       // use true to disable editing
-              onBlur={this.handleTitleUpdate} // handle innerHTML change
-              tagName='h2' // Use a custom HTML tag (uses a div by default)
+              onBlur={(e) => onHandleBodyUpdate(e)} // handle innerHTML change
+              className="Card-content-text"
             />
-            <div>{data.createdAt}</div>
-          </div>
-          <CardActions disableSpacing className="Card-action">
-            <IconButton
-              onClick={this.handleExpend}
-              aria-expanded={this.state.expanded}
-              aria-label="show more">
-              <ExpandMoreRoundedIcon className={this.state.expanded ? "expandOpen" : "expand"} />
-            </IconButton>
-            {
-              showCompleted === false
-              ? <IconButton
-                  onClick={this.handleSetComplete}
-                  aria-label="complete">
-                  <DoneIcon />
-                </IconButton>
-              : <IconButton
-                  onClick={this.handleDelete}
-                  aria-label="delete">
-                <DeleteIcon />
-            </IconButton>
-            }
-          </CardActions>
-          <Collapse in={this.state.expanded} timeout="auto" unmountOnExit className="Card-content">
-            {/* card body text */}
-            <CardContent>
-              <ContentEditable
-                html={data.body} // innerHTML of the editable div
-                disabled={false}       // use true to disable editing
-                onBlur={this.handleBodyUpdate} // handle innerHTML change
-                className="Card-content-text"
-              />
-            </CardContent>
-          </Collapse>
-        </Card>
-      </div>
-    );
-  }
+          </CardContent>
+        </Collapse>
+      </Card>
+    </div>
+  );
 }
 
 export default Todo;
