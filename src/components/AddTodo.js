@@ -15,55 +15,55 @@ function AddTodo({ onAddTodo }) {
 	const [body, setBody] = useState('');
 
 	return (
-			<div className="Modal-wrapper">
-					<Modal
-							open={show}
-							onClose={() => setShow(false)}
-					>
-							<div className="Modal-body">
-								<h2>Add a new Todo item</h2>
-								<form noValidate autoComplete="off">
-									<Grid item xs={12}>
-										<TextField 
-											className="input-text" 
-											id="create-title" 
-											label="Title" 
-											value={title}
-											onChange={(e) => setTitle(e.target.value)} 
-										/>
-									</Grid>
-									<Grid item xs={12}>
-										<TextField
-											className="input-text"
-											id="create-body"
-											label="Body"
-											multiline
-											rows={4}
-											variant="outlined"
-											value={body}
-											onChange={(e) => setBody(e.target.value)} 
-										/>
-									</Grid>
-									<Button
-										variant="contained"
-										color="primary"
-										size="large"
-										startIcon={<SaveIcon />}
-										onClick={() => {
-											onAddTodo(title, body);
-											setTitle('');
-											setBody('');
-										}}
-									>
-									Save
-									</Button>
-								</form>
-							</div>
-					</Modal>
-					<IconButton onClick={() => setShow(true)} className="Modal-button">
-						<PostAddIcon></PostAddIcon>
-					</IconButton>
-			</div>
+		<div className="Modal-wrapper">
+				<Modal
+						open={show}
+						onClose={() => setShow(false)}
+				>
+						<div className="Modal-body">
+							<h2>Add a new Todo item</h2>
+							<form noValidate autoComplete="off">
+								<Grid item xs={12}>
+									<TextField 
+										className="input-text" 
+										id="create-title" 
+										label="Title" 
+										value={title}
+										onChange={(e) => setTitle(e.target.value)} 
+									/>
+								</Grid>
+								<Grid item xs={12}>
+									<TextField
+										className="input-text"
+										id="create-body"
+										label="Body"
+										multiline
+										rows={4}
+										variant="outlined"
+										value={body}
+										onChange={(e) => setBody(e.target.value)} 
+									/>
+								</Grid>
+								<Button
+									variant="contained"
+									color="primary"
+									size="large"
+									startIcon={<SaveIcon />}
+									onClick={() => {
+										onAddTodo(title, body);
+										setTitle('');
+										setBody('');
+									}}
+								>
+								Save
+								</Button>
+							</form>
+						</div>
+				</Modal>
+				<IconButton onClick={() => setShow(true)} className="Modal-button">
+					<PostAddIcon></PostAddIcon>
+				</IconButton>
+		</div>
 	);
     
 }
