@@ -26,6 +26,7 @@ function TodoList ({
     onLoadTodos();
   }, []);
 
+	// call confirm modal with complete action
 	const onHandleSetComplete = (id) => {
 		setModalTodoId(id);
 		setShowModal(true);
@@ -33,6 +34,7 @@ function TodoList ({
 		setModalAction('complete');
 	}
 
+	// call confirm modal with delete action
 	const onHandleDelete = (id) => {
 		setModalTodoId(id);
 		setShowModal(true);
@@ -46,6 +48,8 @@ function TodoList ({
 		setShowModal(false);
 	}
 
+	const todoData = showCompleted ? completedTodos : incompleteTodos;
+
 	return (
 		<main>
 			<div className="List">
@@ -54,8 +58,7 @@ function TodoList ({
 					? <h3>Loading...</h3>
 					: <div className={showCompleted === false ? 'List-Incomplete' : 'List-Complete'}>
 							{
-								showCompleted === false
-								? incompleteTodos.map(todo =>
+								todoData.map(todo =>
 									<Todo key={todo._id} data={todo}
 										handleTitleUpdate={onTitleUpdate}
 										handleBodyUpdate={onBodyUpdate}
@@ -63,16 +66,7 @@ function TodoList ({
 										handleDelete={id => onHandleDelete(id)}
 										showCompleted={showCompleted}
 									/>
-									)
-								: completedTodos.map(todo =>
-									<Todo key={todo._id} data={todo}
-										handleTitleUpdate={onTitleUpdate}
-										handleBodyUpdate={onBodyUpdate}
-										handleSetComplete={id => onHandleSetComplete(id)}
-										handleDelete={id => onHandleDelete(id)}
-										showCompleted={showCompleted}
-									/>
-									)
+								)
 							}
 						</div>
 				}
