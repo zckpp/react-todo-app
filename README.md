@@ -1,4 +1,8 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# React Todo App
+
+The Todo App supports actions such as create, edit, mark as complete and delete todos.
+The backend is based on Node.js and MongoDB.
+The goal was practicing React with Redux.
 
 ## Available Scripts
 
