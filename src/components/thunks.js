@@ -11,10 +11,12 @@ import {
   setLoginErrorMessage
 } from './actions';
 
+const resourceUrl = 'http://localhost:4000';
+
 export const loadTodos = () => async (dispatch) => {
   try {
     dispatch(loadTodosInProgress());
-    const response = await fetch('http://localhost:4000/todos');
+    const response = await fetch(`${resourceUrl}/todos`);
     const json = await response.json();
     // format date
     const todos = json.map(todo => {
@@ -32,7 +34,7 @@ export const titleUpdate = (title, todo) => async (dispatch) => {
   try {
     if (title !== todo.title) {
       todo.title = title;
-      const response = await fetch(`http://localhost:4000/todos/${todo._id}`, {
+      const response = await fetch(`${resourceUrl}/todos/${todo._id}`, {
         headers: {
           'Content-Type': 'application/json',
         },
@@ -51,7 +53,7 @@ export const bodyUpdate = (body, todo) => async (dispatch) => {
   try {
     if (body !== todo.body) {
       todo.body = body;
-      const response = await fetch(`http://localhost:4000/todos/${todo._id}`, {
+      const response = await fetch(`${resourceUrl}/todos/${todo._id}`, {
         headers: {
           'Content-Type': 'application/json',
         },
@@ -68,7 +70,7 @@ export const bodyUpdate = (body, todo) => async (dispatch) => {
 
 export const addTodo = (title, body) => async (dispatch) => {
   try {
-    const response = await fetch('http://localhost:4000/todos', {
+    const response = await fetch(`${resourceUrl}/todos`, {
       headers: {
         'Content-Type': 'application/json',
       },
@@ -84,7 +86,7 @@ export const addTodo = (title, body) => async (dispatch) => {
 
 export const deleteTodoByID = id => async (dispatch) => {
   try {
-    const response = await fetch(`http://localhost:4000/todos/${id}`, {
+    const response = await fetch(`${resourceUrl}/todos/${id}`, {
       method: 'delete'
     });
     const json = await response.json();
@@ -96,7 +98,7 @@ export const deleteTodoByID = id => async (dispatch) => {
 
 export const setCompleteTodo = id => async (dispatch) => {
   try {
-    const response = await fetch(`http://localhost:4000/todos/${id}/complete`, {
+    const response = await fetch(`${resourceUrl}/todos/${id}/complete`, {
       headers: {
         'Content-Type': 'application/json',
       },

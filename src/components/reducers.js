@@ -72,7 +72,6 @@ export const todos = (state = initialState, action) => {
         data: state.data.map(todo => {
           if (todoToUpdate._id === todo._id) {
             todo.body = todoToUpdate.body;
-            console.log(todo);
           }
           return todo;
         })
